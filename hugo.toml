@@ -4,13 +4,14 @@ defaultContentLanguage = "ja"
 title = "Life Itself"
 theme = "PaperMod"
 hasCJKLanguage = true
+timeZone = "Asia/Tokyo"
 paginate = 10
 enableRobotsTXT = true
 buildDrafts = false
 buildFuture = false
 
 [params]
-  author = "Your Name"
+  author = "藤永フリオ"
   description = "Life Itself — 日々の記録"
   defaultTheme = "auto"
   ShowReadingTime = true
