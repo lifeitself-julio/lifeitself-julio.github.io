@@ -33,6 +33,26 @@ buildFuture = false
   name = "github"
   url = "https://github.com/yasufuji97"
 
+[[menus.main]]
+  name = "Diary"
+  url = "/posts/"
+  weight = 10
+
+[[menus.main]]
+  name = "Memories"
+  url = "/categories/memories/"
+  weight = 20
+
+[[menus.main]]
+  name = "Language"
+  url = "/categories/language/"
+  weight = 30
+
+[[menus.main]]
+  name = "About"
+  url = "/about/"
+  weight = 40
+
 [taxonomies]
   tag = "tags"
   category = "categories"
