@@ -4,7 +4,7 @@ layout: "about"
 url: "/about"
 ---
 
-**藤永フリオ / Julio Fujinaga **
+**藤永フリオ / Julio Fujinaga**
 
 コーヒー / 日記 / 記憶 / 身体 / どもり / 口髭
 野球 / スペイン語 / マテ茶
