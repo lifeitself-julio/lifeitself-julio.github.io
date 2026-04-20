@@ -16,6 +16,21 @@ publish: true/false
 memo: （どの章と接続可能か、編集上の気づき）
 ```
 
+## テキストが貼り付けられたときの動作
+
+1. YAMLでタグ付けを返す
+2. 確認なしにそのままHugoの記事として保存する
+3. git pushまで自動で実行する
+
+保存・pushには以下のスクリプトを使うこと：
+
+```bash
+python ~/Documents/lifeitself/scripts/diary_to_hugo.py <txtファイルパス> "<yaml文字列>"
+```
+
+txtファイルがない場合（テキストを直接貼り付けた場合）は、
+`/tmp/diary_<日付>.txt` に一時保存してから上記スクリプトを実行すること。
+
 ## プロジェクト情報
 
 | ZINE | テーマ |
