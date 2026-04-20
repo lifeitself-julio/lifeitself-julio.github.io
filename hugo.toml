@@ -1,3 +1,44 @@
-baseURL = 'https://example.org/'
-locale = 'en-us'
-title = 'My New Hugo Project'
+baseURL = "https://lifeitself.jp/"
+languageCode = "ja"
+defaultContentLanguage = "ja"
+title = "Life Itself"
+theme = "PaperMod"
+hasCJKLanguage = true
+paginate = 10
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+
+[params]
+  author = "Your Name"
+  description = "Life Itself — 日々の記録"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  TocOpen = false
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = true
+  dateFormat = "2006年1月2日"
+
+[params.homeInfoParams]
+  Title = "Life Itself"
+  Content = "日々の思考と記録"
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/yasufuji97"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[minify]
+  disableXML = true
+  minifyOutput = true
