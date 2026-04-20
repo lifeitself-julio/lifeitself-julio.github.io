@@ -42,11 +42,46 @@ def parse_date(text: str) -> datetime:
 
 
 def strip_date_line(text: str) -> str:
-    """先頭の日付見出し行を除いた本文を返す。"""
+    """先頭の日付見出し行（# 2026/04/15 など）を除いた本文を返す。"""
     lines = text.strip().splitlines()
     if lines and re.match(r"^#\s*\d{4}[/\-]", lines[0]):
         lines = lines[1:]
-    return "\n".join(lines).strip()
+    # 日付行除去後の先頭空行も除く
+    while lines and lines[0].strip() == "":
+        lines = lines[1:]
+    return "\n".join(lines)
+
+
+def normalize_body(text: str) -> str:
+    """
+    Ulyssesからコピーしたテキストの段落を正規化する。
+
+    Ulyssesは全角スペース（U+3000）で段落頭を字下げし、
+    コピー時に段落間が単一の改行（\\n）になる場合がある。
+    全角スペース始まりの行を段落の開始とみなし、
+    前に空行がなければ挿入する。連続空行は1つに圧縮する。
+    """
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    lines = text.split("\n")
+
+    result: list[str] = []
+    for line in lines:
+        # 全角スペース始まりの行の前に空行を挿入（まだ空行がない場合）
+        if line.startswith("\u3000") and result and result[-1].strip() != "":
+            result.append("")
+        result.append(line)
+
+    # 連続する空行を1つに圧縮
+    normalized: list[str] = []
+    prev_blank = False
+    for line in result:
+        is_blank = line.strip() == ""
+        if is_blank and prev_blank:
+            continue
+        normalized.append(line)
+        prev_blank = is_blank
+
+    return "\n".join(normalized).strip()
 
 
 # --- front matter 構築 ---
@@ -144,7 +179,7 @@ def main() -> None:
 
     # markdown生成・保存
     front_matter = build_front_matter(date, tags)
-    body         = strip_date_line(text)
+    body         = normalize_body(strip_date_line(text))
     out_path.write_text(to_markdown(front_matter, body), encoding="utf-8")
     print(f"保存: {out_path}")
 
