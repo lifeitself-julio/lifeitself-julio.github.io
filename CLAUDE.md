@@ -31,6 +31,20 @@ python ~/Documents/lifeitself/scripts/diary_to_hugo.py <txtファイルパス> "
 txtファイルがない場合（テキストを直接貼り付けた場合）は、
 `/tmp/diary_<日付>.txt` に一時保存してから上記スクリプトを実行すること。
 
+## よく使うコマンド
+
+### 非公開記事を含めてローカルで確認する
+cd ~/Documents/lifeitself
+hugo server -D
+→ ブラウザで http://localhost:1313 を開く
+→ 確認が終わったらターミナルでControl+Cで停止
+
+### 記事をpushする
+cd ~/Documents/lifeitself
+git add .
+git commit -m "記事追加"
+git push
+
 ## プロジェクト情報
 
 | ZINE | テーマ |
