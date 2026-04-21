@@ -61,9 +61,14 @@ buildFuture = false
   weight = 50
 
 [[menus.main]]
+  name = "Log"
+  url = "/log/"
+  weight = 60
+
+[[menus.main]]
   name = "ZINE"
   url = "/zine/"
-  weight = 60
+  weight = 70
 
 [[menus.main]]
   name = "About"

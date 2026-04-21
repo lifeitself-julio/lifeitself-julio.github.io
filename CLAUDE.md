@@ -45,6 +45,27 @@ git add .
 git commit -m "記事追加"
 git push
 
+## Logの自動抽出
+
+日記に以下の記号で始まる行があれば、
+~/Documents/lifeitself/content/log.mdに日付付きで追記する：
+
+- 📚 本
+- 🎵 音楽
+- 🎬 映画・ドラマ
+- 🎙️ Podcast
+- 📺 YouTube
+
+追記形式：
+
+```
+## 2026年4月21日
+📚 島尾敏雄『出発は遂に訪れず』p.23-45
+🎵 Tim Bernardes / Recomeçar
+```
+
+日記本文には影響を与えない。
+
 ## Languageカテゴリの処理
 
 スペイン語投稿が以下の形式で貼り付けられたら：
