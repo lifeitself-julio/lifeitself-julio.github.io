@@ -12,7 +12,9 @@ buildFuture = false
 
 [params]
   author = "藤永フリオ"
-  description = "Life Itself — 日々の記録"
+  description = "日々の記憶、身体の感覚、小さな愛について。藤永フリオの日記とエッセイ。"
+  keywords = ["日記", "エッセイ", "記憶", "ZINE", "藤永フリオ"]
+  images = ["/images/ogp.png"]
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowShareButtons = false
@@ -49,9 +51,14 @@ buildFuture = false
   weight = 30
 
 [[menus.main]]
+  name = "Tags"
+  url = "/tags/"
+  weight = 40
+
+[[menus.main]]
   name = "About"
   url = "/about/"
-  weight = 40
+  weight = 50
 
 [taxonomies]
   tag = "tags"
