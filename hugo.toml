@@ -51,14 +51,19 @@ buildFuture = false
   weight = 30
 
 [[menus.main]]
-  name = "Tags"
-  url = "/tags/"
+  name = "Music"
+  url = "/categories/music/"
   weight = 40
+
+[[menus.main]]
+  name = "Reading"
+  url = "/categories/reading/"
+  weight = 50
 
 [[menus.main]]
   name = "About"
   url = "/about/"
-  weight = 50
+  weight = 60
 
 [taxonomies]
   tag = "tags"

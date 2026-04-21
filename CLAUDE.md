@@ -4,7 +4,7 @@
 
 ```yaml
 zine_candidate:
-  name: Memories/Language/Papa/未分類
+  name: Memories/Language/Music/Reading/Diary/未分類
   confidence: 高/中/低
 themes:
   - （5つまで）
