@@ -101,27 +101,57 @@
     text-decoration: underline;
 }
 
-/* ── ロゴ：タイトル＋サブタイトル ── */
+/* ── ヘッダー：3カラムグリッド（空｜ロゴ中央｜メニュー右） ── */
+.header-nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    max-width: calc(var(--nav-width) + var(--gap) * 2);
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+}
+.header-spacer {
+    /* 左側バランス用の空スペース */
+}
+.logo {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
 .logo a {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     line-height: 1.15;
     column-gap: 0;
+    text-align: center;
 }
 .logo-text-wrap {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 .logo-title {
-    font-size: 28px;
+    font-size: 2.2rem;
     font-weight: 700;
     line-height: 1.2;
 }
 .logo-subtitle {
-    font-size: 12px;
+    font-size: 1.5rem;
     font-weight: 400;
     color: var(--secondary);
     letter-spacing: 0.04em;
     line-height: 1.4;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin: auto var(--gap);
+}
+.header-right .menu {
+    margin: 0;
 }
 </style>
