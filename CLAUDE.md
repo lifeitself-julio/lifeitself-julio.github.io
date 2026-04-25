@@ -85,6 +85,23 @@ git push
 【Julioのひとこと】はYasuさんが自分で一行書き加える場所。
 空欄のままpushしないこと。必ずYasuさんに確認を促す。
 
+## 画像・動画の埋め込み
+
+### YouTube動画
+日記にYouTubeのURLが含まれていたら、
+以下のHugoショートコードに自動変換する：
+{{</* youtube 動画ID */>}}
+
+例：https://www.youtube.com/watch?v=AbCdEfGhIjK
+→ {{</* youtube AbCdEfGhIjK */>}}
+
+### 画像（imgur）
+日記にimgurのURLが含まれていたら、
+以下のmarkdown形式に自動変換する：
+![](/images/ファイル名.jpg)
+または
+![](https://i.imgur.com/xxxxx.jpg)
+
 ## プロジェクト情報
 
 | ZINE | テーマ |
