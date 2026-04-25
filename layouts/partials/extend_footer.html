@@ -1,23 +1,5 @@
 {{- $posts := where site.RegularPages "Type" "in" site.Params.mainSections }}
 
-{{/* ── 固定サイドバー（広い画面用） ── */}}
-<aside class="sidebar-archive" aria-label="月別アーカイブ">
-  <p class="footer-section-title">Archive</p>
-  <ul class="footer-archive-list">
-    {{- range $posts.GroupByDate "2006-01" }}
-    {{- $parts := split .Key "-" }}
-    {{- $year  := index $parts 0 }}
-    {{- $month := int (index $parts 1) }}
-    <li>
-      <a href="/archives/#{{ .Key }}">{{ $year }}年{{ $month }}月 ({{ len .Pages }})</a>
-    </li>
-    {{- end }}
-  </ul>
-  <div class="footer-random" style="margin-top:1rem;">
-    <a id="random-post-link" href="#">ランダムに読む →</a>
-  </div>
-</aside>
-
 {{/* ── フッター内（狭い画面用フォールバック） ── */}}
 <div class="footer-extra footer-extra--mobile">
   <nav class="footer-archive" aria-label="月別アーカイブ">
@@ -41,13 +23,12 @@
 <script>
 (function () {
   var posts = [{{ range $posts }}{{ .Permalink | jsonify }},{{ end }}];
-  function goRandom(e) {
-    e.preventDefault();
-    if (posts.length > 0) window.location.href = posts[Math.floor(Math.random() * posts.length)];
+  var link = document.getElementById("random-post-link-mobile");
+  if (link && posts.length > 0) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = posts[Math.floor(Math.random() * posts.length)];
+    });
   }
-  var l1 = document.getElementById("random-post-link");
-  var l2 = document.getElementById("random-post-link-mobile");
-  if (l1) l1.addEventListener("click", goRandom);
-  if (l2) l2.addEventListener("click", goRandom);
 })();
 </script>

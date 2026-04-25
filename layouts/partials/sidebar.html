@@ -1,0 +1,31 @@
+{{- $posts := where site.RegularPages "Type" "in" site.Params.mainSections }}
+
+<aside class="sidebar-archive" aria-label="月別アーカイブ">
+  <p class="footer-section-title">Archive</p>
+  <ul class="footer-archive-list">
+    {{- range $posts.GroupByDate "2006-01" }}
+    {{- $parts := split .Key "-" }}
+    {{- $year  := index $parts 0 }}
+    {{- $month := int (index $parts 1) }}
+    <li>
+      <a href="/archives/#{{ .Key }}">{{ $year }}年{{ $month }}月 ({{ len .Pages }})</a>
+    </li>
+    {{- end }}
+  </ul>
+  <div class="footer-random" style="margin-top:1rem;">
+    <a id="sidebar-random-link" href="#">ランダムに読む →</a>
+  </div>
+</aside>
+
+<script>
+(function () {
+  var posts = [{{ range $posts }}{{ .Permalink | jsonify }},{{ end }}];
+  var link = document.getElementById("sidebar-random-link");
+  if (link && posts.length > 0) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = posts[Math.floor(Math.random() * posts.length)];
+    });
+  }
+})();
+</script>
