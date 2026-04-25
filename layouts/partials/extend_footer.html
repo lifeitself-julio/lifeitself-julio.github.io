@@ -22,7 +22,7 @@
 
 <script>
 (function () {
-  var posts = [{{ range $posts }}{{ .Permalink | jsonify }},{{ end }}];
+  var posts = [{{ range $posts }}"{{ .Permalink }}",{{ end }}];
   var link = document.getElementById("random-post-link-mobile");
   if (link && posts.length > 0) {
     link.addEventListener("click", function (e) {

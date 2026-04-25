@@ -19,7 +19,7 @@
 
 <script>
 (function () {
-  var posts = [{{ range $posts }}{{ .Permalink | jsonify }},{{ end }}];
+  var posts = [{{ range $posts }}"{{ .Permalink }}",{{ end }}];
   var link = document.getElementById("sidebar-random-link");
   if (link && posts.length > 0) {
     link.addEventListener("click", function (e) {
