@@ -1,49 +1,70 @@
 <header class="header">
-    <nav class="header-nav">
+    {{- $label_text := (site.Params.label.text | default site.Title) }}
+    <div class="header-nav">
 
-        {{/* ── 左スペーサー（グリッドバランス用） ── */}}
-        <div class="header-spacer"></div>
+        {{/* ── 右上絶対配置：ダークモードボタン ── */}}
+        {{- $lsenabled := (or (not site.Params.disableThemeToggle) (and (not site.Params.disableLangToggle) (hugo.IsMultilingual))) }}
+        {{- if $lsenabled }}
+        <div class="header-controls">
+            {{- if (not site.Params.disableThemeToggle) }}
+            <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+            {{- end }}
+            {{- if (not site.Params.disableLangToggle) }}
+                {{- $lang := .Lang}}
+                {{- with site.Home.Translations }}
+                <ul class="lang-menu">
+                    {{- range . -}}
+                    {{- if ne $lang .Lang }}
+                    <li>
+                        <a href="{{- .Permalink -}}" title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
+                            aria-label="{{ .Language.LanguageName | default (.Lang | title) }}">
+                            {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
+                            {{- .Language.LanguageName | emojify -}}
+                            {{- else }}
+                            {{- .Lang | title -}}
+                            {{- end -}}
+                        </a>
+                    </li>
+                    {{- end -}}
+                    {{- end}}
+                </ul>
+                {{- end }}
+            {{- end }}
+        </div>
+        {{- end }}
 
-        {{/* ── 中央：ロゴ ── */}}
-        <div class="logo">
-            {{- $label_text := (site.Params.label.text | default site.Title) }}
+        {{/* ── 上段：タイトル中央 ── */}}
+        <div class="header-logo-row">
             {{- if site.Title }}
             <a href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
-                {{- if site.Params.label.icon }}
-                {{- $img := resources.Get site.Params.label.icon }}
-                {{- if $img }}
-                    {{- $processableFormats := (slice "jpg" "jpeg" "png" "tif" "bmp" "gif") -}}
-                    {{- if hugo.IsExtended -}}
-                        {{- $processableFormats = $processableFormats | append "webp" -}}
-                    {{- end -}}
-                    {{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
-                    {{- if and (in $processableFormats $img.MediaType.SubType) (eq $prod true)}}
-                        {{- if site.Params.label.iconHeight }}
-                            {{- $img = $img.Resize (printf "x%d" site.Params.label.iconHeight) }}
-                        {{ else }}
-                            {{- $img = $img.Resize "x30" }}
-                        {{- end }}
-                    {{- end }}
-                    <img src="{{ $img.Permalink }}" alt="" aria-label="logo"
-                        height="{{- site.Params.label.iconHeight | default "30" -}}">
-                {{- else }}
-                <img src="{{- site.Params.label.icon | absURL -}}" alt="" aria-label="logo"
-                    height="{{- site.Params.label.iconHeight | default "30" -}}">
-                {{- end -}}
-                {{- else if hasPrefix site.Params.label.iconSVG "<svg" }}
-                    {{ site.Params.label.iconSVG | safeHTML }}
-                {{- end -}}
-                <span class="logo-text-wrap">
-                    <span class="logo-title">{{- $label_text -}}</span>
-                    <span class="logo-subtitle">藤永フリオ</span>
-                </span>
+                <span class="logo-title">{{- $label_text -}}</span>
+                <span class="logo-subtitle">藤永フリオ</span>
             </a>
             {{- end }}
         </div>
 
-        {{/* ── 右側：メニュー＋テーマトグル ── */}}
-        <div class="header-right">
-            {{- $currentPage := . }}
+        {{/* ── 下段：メニュー中央 ── */}}
+        {{- $currentPage := . }}
+        <nav class="header-menu-row">
             <ul id="menu" class="menu">
                 {{- range site.Menus.main }}
                 {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
@@ -69,59 +90,7 @@
                 </li>
                 {{- end }}
             </ul>
+        </nav>
 
-            {{- $lsenabled := (or (not site.Params.disableThemeToggle) (and (not site.Params.disableLangToggle) (hugo.IsMultilingual))) }}
-            {{- if $lsenabled }}
-            <div class="logo-switches">
-                {{- if (not site.Params.disableThemeToggle) }}
-                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-                {{- end }}
-
-                {{- if (not site.Params.disableLangToggle) }}
-                    {{- $lang := .Lang}}
-                    {{- with site.Home.Translations }}
-                    {{- $separator := or $label_text (not site.Params.disableThemeToggle)}}
-                    {{- if $separator }}<span>|</span>{{ end }}
-                    <ul class="lang-menu">
-                        {{- range . -}}
-                        {{- if ne $lang .Lang }}
-                        <li>
-                            <a href="{{- .Permalink -}}" title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
-                                aria-label="{{ .Language.LanguageName | default (.Lang | title) }}">
-                                {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
-                                {{- .Language.LanguageName | emojify -}}
-                                {{- else }}
-                                {{- .Lang | title -}}
-                                {{- end -}}
-                            </a>
-                        </li>
-                        {{- end -}}
-                        {{- end}}
-                    </ul>
-                    {{- end }}
-                {{- end }}
-            </div>
-            {{- end }}
-        </div>
-
-    </nav>
+    </div>
 </header>
