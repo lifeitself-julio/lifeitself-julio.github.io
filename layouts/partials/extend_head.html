@@ -1,16 +1,26 @@
 <style>
-.post-divider {
-  border: none;
-  border-top: 1px solid var(--border, #e5e7eb);
-  margin: 3rem 0;
+/* トップページ全文表示：PaperMod の line-clamp を解除 */
+.post-full .entry-content {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    color: var(--content);
+    font-size: inherit;
+    line-height: 1.8;
 }
+
+/* 記事間の区切り線 */
+.post-divider {
+    border: none;
+    border-top: 1px solid var(--border, #e5e7eb);
+    margin: 3rem 0;
+}
+
+/* タイトルリンク */
 .post-full .entry-header h2 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 .post-full .entry-header h2 a:hover {
-  text-decoration: underline;
-}
-.post-full .entry-content {
-  margin-top: 1rem;
+    text-decoration: underline;
 }
 </style>
