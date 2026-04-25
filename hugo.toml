@@ -30,10 +30,6 @@ buildFuture = false
   ShowRssButtonInSectionTermList = true
   dateFormat = "2006年1月2日"
 
-[params.homeInfoParams]
-  Title = "Life Itself"
-  Content = "日々の思考と記録"
-
 [[params.socialIcons]]
   name = "github"
   url = "https://github.com/yasufuji97"
