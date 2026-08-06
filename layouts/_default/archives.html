@@ -20,7 +20,10 @@
 
   {{- range .Pages.GroupByDate "2006-01" }}
   {{- $parts := split .Key "-" }}
-  {{- $month := int (index $parts 1) }}
+  {{- /* index $parts 1 は "08" のような月の文字列。int に通すとGoが8進数と
+        誤認し("08"は不正な8進数)、08月・09月のたびにビルドが落ちていた。
+        表示用途しかないので int() を経由せず先頭のゼロだけ取り除く。 */ -}}
+  {{- $month := strings.TrimLeft "0" (index $parts 1) }}
   <div class="archive-month">
     <h3 class="archive-month-header" id="{{ .Key }}">
       <a class="archive-header-link" href="#{{ .Key }}">{{ $year }}年{{ $month }}月</a>

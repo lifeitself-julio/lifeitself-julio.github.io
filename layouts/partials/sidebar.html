@@ -6,7 +6,7 @@
     {{- range $posts.GroupByDate "2006-01" }}
     {{- $parts := split .Key "-" }}
     {{- $year  := index $parts 0 }}
-    {{- $month := int (index $parts 1) }}
+    {{- $month := strings.TrimLeft "0" (index $parts 1) }}
     <li>
       <a href="/archives/#{{ .Key }}">{{ $year }}年{{ $month }}月 ({{ len .Pages }})</a>
     </li>
